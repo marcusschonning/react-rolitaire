@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import CardContainer from './../../../containers/game-board/card/card.container';
+import BoardRowContainer from './../../../containers/game-board/board/board-row.container';
 import './board.component.css';
 
 
@@ -12,15 +12,7 @@ class BoardComponent extends Component {
         <div className="board-rows">
           {Object.keys(this.props.board).map((row, i) => {
             return (
-              <div className="board-row" key={i}>
-                {this.props.board[row].map((card, j) => {
-                  return(
-                    <div key={card}>
-                      <CardContainer orderFromLast={j} cardId={card} />
-                    </div>
-                  )
-                })}
-              </div>
+              <BoardRowContainer key={i} id={row} board={this.props.board[row]} cardsShowing={this.props.cardsShowing[row]} />
             )
           })}
         </div>

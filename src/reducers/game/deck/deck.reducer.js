@@ -26,12 +26,23 @@ const deck = (state = initialState, action) => {
         drawn: [],
         notDrawn: resetNotDrawn,
       });
+
     case 'MOVE_CARD':
       let { dropId } = action.payload;
-      let newDrawn = state.drawn.indexOf(dropId) ? state.drawn.slice(0, state.drawn.indexOf(action.payload.dropId)) : state.drawn;
+      let newDrawn = state.drawn.indexOf(dropId) !== -1 ? state.drawn.slice(0, state.drawn.indexOf(action.payload.dropId)) : state.drawn;
       return Object.assign({}, state, {
+        ...state,
         drawn: newDrawn
       });
+
+      case 'MOVE_KING':
+        if(action.payload.currentPlace !== 'DECK') {
+          return state
+        }
+        return Object.assign({}, state, {
+          ...state,
+          drawn: state.drawn.slice(0, state.drawn.indexOf(action.payload.cardId))
+        });
     default:
       return state;
   }

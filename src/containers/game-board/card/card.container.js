@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { DragSource, DropTarget } from 'react-dnd';
 
-import { drawFromDeck, moveCard } from './../../../actions/game-board.actions';
+import { drawFromDeck, moveCard, turnCard } from './../../../actions/game-board.actions';
 
 import Card from './../../../components/game-board/card/card.component';
 
@@ -21,6 +21,9 @@ const mapDispatchToProps = (dispatch) => {
       if(deck.notDrawn.indexOf(card.id) !== -1 && deck.notDrawn[deck.notDrawn.length-1] === card.id) {
         dispatch(drawFromDeck(card));
       }
+      if(deck.drawn.indexOf(card.id) === -1 && deck.notDrawn.indexOf(card.id) === -1 && !card.show) {
+        dispatch(turnCard(card.id));
+      }
     },
     moveCard: (targetId, dropId, board) => {
       dispatch(moveCard(targetId, dropId, board));
@@ -30,9 +33,27 @@ const mapDispatchToProps = (dispatch) => {
 
 class CardFetcher extends Component {
   render() {
-    const { connectDragSource, connectDropTarget } = this.props;
+
+    const { connectDragSource, connectDropTarget, cardsShowing, cardId } = this.props;
+
+    let topValue = 0;
+    let negativeTop = 0;
+    if( cardsShowing ) {
+      negativeTop = cardsShowing.length < 5 ? cardsShowing.length : 5;
+      topValue = cardsShowing.indexOf(cardId) > 0 ? ((cardsShowing.indexOf(cardId) * 35) - negativeTop) : 0;
+    }
     return compose(connectDragSource, connectDropTarget)(
-      <div style={{height: 180, width: 120, position: 'absolute'}}>
+      <div style={
+        {
+          'left': this.props.orderFromLast ? this.props.orderFromLast/2 : null,
+          'opacity': this.props.isDragging ? 0 : 1,
+          'cursor': 'grab',
+          height: 180,
+          width: 120,
+          position: 'absolute',
+          top: cardsShowing ? topValue : 0
+        }
+      }>
         <Card {...this.props} />
       </div>
     )
@@ -47,7 +68,7 @@ const cardSource = {
   }
 };
 
-const noteTarget = {
+const cardTarget = {
   hover(targetProps, monitor) {
     const targetId = targetProps.id;
     const sourceProps = monitor.getItem();
@@ -86,7 +107,7 @@ const CardContainer = compose(
     mapDispatchToProps
   ),
   DragSource('card', cardSource, collect),
-  DropTarget('card', noteTarget, connect => ({
+  DropTarget('card', cardTarget, connect => ({
     connectDropTarget: connect.dropTarget()
   })),
 )(CardFetcher);

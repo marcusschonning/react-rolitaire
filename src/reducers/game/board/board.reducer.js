@@ -50,6 +50,29 @@ const board = (state = initialState, action) => {
           [addKey]: addToArray
         };
       return Object.assign({}, state, newMovedState);
+
+      case 'MOVE_KING':
+        let { targetRow, currentPlace, cardId } = action.payload;
+        if(currentPlace === 'DECK') {
+          return Object.assign({}, state, {
+            ...state,
+            [targetRow]: state[targetRow].concat(cardId)
+          })
+        }
+        let removeKingKey;
+        for(let key in state) {
+          if(state[key].indexOf(cardId) !== -1) {
+            removeKingKey = key;
+          }
+        }
+        let movedCards = state[removeKingKey].slice(state[removeKingKey].indexOf(cardId));
+
+        return Object.assign({}, state, {
+          ...state,
+          [removeKingKey]: state[removeKingKey].slice(0, state[removeKingKey].indexOf(cardId)),
+          [targetRow]: state[targetRow].concat(movedCards),
+
+        });
     default:
       return state;
   }

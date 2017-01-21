@@ -68,6 +68,14 @@ const cardsById = (state = initialState, action) => {
         }
       });
 
+    case 'TURN_CARD':
+      return Object.assign({}, state, {
+        [action.payload.id]: {
+          ...state[action.payload.id],
+          show: true
+        }
+      })
+
     case 'RESET_DECK':
       let resetCardsInDeck = {};
       let keys = action.payload.deck.drawn;

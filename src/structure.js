@@ -1,9 +1,9 @@
 state.game = {
   suits: {
-    hearths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-    diamonds: [14, 15, 16, 17 ..... ],
-    clubs: [],
-    spades: [],
+    1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+    2: [14, 15, 16, 17 ..... ],
+    3: [],
+    4: [],
   },
   board: {
     1: [],
@@ -26,7 +26,6 @@ state.game = {
       suitColor: 'red' // red/black
       suitValue: 1, // 1-4
       show: false,
-      //placement: 'DECK_NOT_DRAWN', // DECK_NOT_DRAWN/DECK_DRAWN/BOARD_PLAYED/BOARD_HIDDEN/FINNISHED
     },
   },
 };

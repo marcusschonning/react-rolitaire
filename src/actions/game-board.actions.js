@@ -55,3 +55,24 @@ export const moveCard = (targetId, dropId, board) => {
     }
   }
 }
+
+export const moveKing = (targetRow, currentPlace, cardId) => {
+  return {
+    type: 'MOVE_KING',
+    payload: {
+      targetRow: targetRow,
+      currentPlace: currentPlace,
+      cardId: cardId
+    }
+  }
+}
+
+export const turnCard = (id) => {
+  return {
+    type: 'TURN_CARD',
+    payload: {
+      id: id,
+    }
+  }
+}
+

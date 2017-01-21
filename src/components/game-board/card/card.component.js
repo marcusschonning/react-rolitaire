@@ -32,15 +32,13 @@ class CardComponent extends Component {
       default:
         cardValue = card.value;
     }
-    const { isDragging } = this.props;
+    const { deck } = this.props;
+
+    if(card.show && deck.drawn.indexOf(id) === -1) {
+      // change top positioning if cards are stacked
+    }
     return (
-      <div className="card" onClick={() => this.handleClick(card)} style={
-        {
-          'left': this.props.orderFromLast ? this.props.orderFromLast/2 : null,
-          'opacity': isDragging ? 0 : 1,
-          'cursor': 'grab',
-        }
-      }>
+      <div className="card" onClick={() => this.handleClick(card)} >
         <div className={card.show ? 'face ' + card.suit : 'back'}>
           <div className="card-value top">
             <div>{cardValue}</div>
