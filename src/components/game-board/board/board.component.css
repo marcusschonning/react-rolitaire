@@ -1,0 +1,13 @@
+.board-rows {
+  display: flex;
+}
+
+.board-row {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.board-row .card {
+  position: absolute;
+}

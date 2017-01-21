@@ -8,9 +8,10 @@ class DeckComponent extends Component {
     return(
       <div className="deck">
         <div className="pile not-drawn-cards">
+          <div className="card" onClick={() => this.props.resetDeck(this.props.deck)}></div>
           {
             this.props.deck.notDrawn.map((cardId, i) => {
-              return <CardContainer key={i} orderFromLast={i} cardId={cardId} />
+              return <CardContainer key={cardId} orderFromLast={i} cardId={cardId} />
             })
           }
         </div>
@@ -18,7 +19,7 @@ class DeckComponent extends Component {
         <div className="pile drawn-cards">
           {
             this.props.deck.drawn.map((cardId, i) => {
-              return <CardContainer key={i} orderFromLast={i} cardId={cardId} />
+              return <CardContainer key={cardId} orderFromLast={i} cardId={cardId} />
             })
           }
         </div>

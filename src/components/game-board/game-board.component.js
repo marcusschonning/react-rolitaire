@@ -5,7 +5,6 @@ class GameBoardComponent extends Component {
     return(
       <div>
         <h4>Speeeeeeelet :)</h4>
-        <button onClick={this.props.test}>Test</button>
         {this.props.children}
       </div>
     )

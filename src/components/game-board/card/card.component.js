@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+
 import './card.component.css';
 
 class CardComponent extends Component {
@@ -7,11 +8,10 @@ class CardComponent extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick(card) {
-    this.props.handleClick(card)
+    this.props.handleClick(card, this.props.deck);
   }
 
   render() {
-
     const id = this.props.cardId;
     const card = this.props.cardsById[id];
     let cardValue;
@@ -32,11 +32,13 @@ class CardComponent extends Component {
       default:
         cardValue = card.value;
     }
-
-    return(
-      <div className="card" onClick={() => this.props.handleClick(card)} style={
+    const { isDragging } = this.props;
+    return (
+      <div className="card" onClick={() => this.handleClick(card)} style={
         {
-          left: this.props.orderFromLast ? this.props.orderFromLast/2 : null
+          'left': this.props.orderFromLast ? this.props.orderFromLast/2 : null,
+          'opacity': isDragging ? 0 : 1,
+          'cursor': 'grab',
         }
       }>
         <div className={card.show ? 'face ' + card.suit : 'back'}>

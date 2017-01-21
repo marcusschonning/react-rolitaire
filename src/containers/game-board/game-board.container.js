@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import GameBoardComponent from './../../components/game-board/game-board.component';
 import DeckContainer from './deck/deck.container';
+import BoardContainer from './board/board.container';
 
-import { setDeck } from './../../actions/deck.action';
+import { startGame } from './../../actions/game-board.actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -14,28 +18,35 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setDeck: (cards) => {
-      dispatch(setDeck(cards));
-    }
+    startGame: (cards) => {
+      dispatch(startGame(cards));
+    },
   }
 }
 
 class GameBoardFetcher extends Component {
 
-
+  componentDidMount() {
+    this.props.startGame(this.props.game.cardsById);
+  }
 
   render() {
     return(
       <GameBoardComponent {...this.props}>
         <DeckContainer />
+        <BoardContainer />
       </GameBoardComponent>
     )
   }
 }
+GameBoardFetcher = DragDropContext(HTML5Backend)(GameBoardFetcher);
 
-const GameBoardContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GameBoardFetcher);
+const GameBoardContainer = compose(
+  DragDropContext(HTML5Backend),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(GameBoardFetcher)
 
 export default GameBoardContainer;

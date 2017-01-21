@@ -26,13 +26,14 @@ for(let i = 0; i < 4; i++) {
       default:
         break;
     }
+    let suitColor = suitValue > 2 ? 'black' : 'red';
     cards = cards.concat({
+      id: cardId,
       value: value,
       suit: suit,
+      suitColor: suitColor,
       suitValue: suitValue,
       show: false,
-      placement: 'DECK_NOT_DRAWN',
-      id: cardId
     })
   }
   value = 0;
@@ -46,6 +47,16 @@ const initialState = temp;
 
 const cardsById = (state = initialState, action) => {
   switch(action.type) {
+    case 'START_GAME':
+      let cardsToTurn = {}
+      for(let i = 0; i < action.payload.cardsToTurn.length; i++) {
+        let cardToTurn = action.payload.cardsToTurn[i];
+        cardsToTurn[cardToTurn] = Object.assign({}, state[cardToTurn], {
+          ...state[cardToTurn],
+          show: true
+        })
+      }
+      return Object.assign({}, state, cardsToTurn);
     case 'DRAW_FROM_DECK':
       let { card } = action.payload;
 
@@ -53,10 +64,21 @@ const cardsById = (state = initialState, action) => {
       return Object.assign({}, state, {
         [id]: {
           ...state[id],
-          placement: 'DECK_DRAWN',
           show: true,
         }
       });
+
+    case 'RESET_DECK':
+      let resetCardsInDeck = {};
+      let keys = action.payload.deck.drawn;
+      for(let i = 0; i < keys.length; i++) {
+        resetCardsInDeck[keys[i]] = Object.assign({}, state[keys[i]], {
+          ...state[keys[i]],
+          show: false,
+        })
+      }
+      return Object.assign({}, state, resetCardsInDeck);
+
     default:
       return state;
   }
