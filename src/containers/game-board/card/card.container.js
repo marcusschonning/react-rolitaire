@@ -64,7 +64,10 @@ const cardSource = {
     return {
       id: props.cardId
     };
-  }
+  },
+  canDrag(props, monitor) {
+    return props.cardsById[props.cardId].show;
+  },
 };
 
 const cardTarget = {

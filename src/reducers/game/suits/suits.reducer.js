@@ -28,7 +28,6 @@ const suits = (state = initialState, action) => {
       });
 
     case 'MOVE_CARD':
-      console.log(action.payload.dropId);
       let keyInArrayToFilter;
       for(let key in state) {
         if(state[key].indexOf(action.payload.dropId) !== -1) {
