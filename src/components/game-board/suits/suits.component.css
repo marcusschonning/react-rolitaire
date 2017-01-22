@@ -1,0 +1,9 @@
+.suits {
+  display: flex;
+  float: right;
+  position: relative;
+}
+
+.suitRow {
+  margin-left: 25px;
+}

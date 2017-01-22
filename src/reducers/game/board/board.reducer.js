@@ -51,28 +51,50 @@ const board = (state = initialState, action) => {
         };
       return Object.assign({}, state, newMovedState);
 
-      case 'MOVE_KING':
-        let { targetRow, currentPlace, cardId } = action.payload;
-        if(currentPlace === 'DECK') {
-          return Object.assign({}, state, {
-            ...state,
-            [targetRow]: state[targetRow].concat(cardId)
-          })
-        }
-        let removeKingKey;
-        for(let key in state) {
-          if(state[key].indexOf(cardId) !== -1) {
-            removeKingKey = key;
-          }
-        }
-        let movedCards = state[removeKingKey].slice(state[removeKingKey].indexOf(cardId));
-
+    case 'MOVE_KING':
+      let { targetRow, currentPlace, cardId } = action.payload;
+      if(currentPlace === 'DECK') {
         return Object.assign({}, state, {
           ...state,
-          [removeKingKey]: state[removeKingKey].slice(0, state[removeKingKey].indexOf(cardId)),
-          [targetRow]: state[targetRow].concat(movedCards),
+          [targetRow]: state[targetRow].concat(cardId)
+        })
+      }
+      let removeKingKey;
+      for(let key in state) {
+        if(state[key].indexOf(cardId) !== -1) {
+          removeKingKey = key;
+        }
+      }
+      let movedCards = state[removeKingKey].slice(state[removeKingKey].indexOf(cardId));
 
-        });
+      return Object.assign({}, state, {
+        ...state,
+        [removeKingKey]: state[removeKingKey].slice(0, state[removeKingKey].indexOf(cardId)),
+        [targetRow]: state[targetRow].concat(movedCards),
+
+      });
+    case 'ADD_TO_SUITS':
+      const removeCardId = action.payload.cardId;
+      let removeFromStateKey,
+          movedToSuitsArr = [];
+      for (let key in state) {
+        if(state[key].indexOf(removeCardId) !== -1) {
+          removeFromStateKey = key;
+          movedToSuitsArr = state[key].slice(0, state[key].indexOf(removeCardId)).concat(
+            state[key].slice(state[key].indexOf(removeCardId) + 1)
+          )
+          break;
+        }
+      }
+      if(removeFromStateKey) {
+        return Object.assign({}, state, {
+          ...state,
+          [removeFromStateKey]: movedToSuitsArr
+        })
+      } else {
+        return state;
+      }
+
     default:
       return state;
   }

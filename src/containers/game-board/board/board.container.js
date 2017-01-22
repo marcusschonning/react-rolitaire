@@ -32,9 +32,7 @@ const mapDispatchToProps = (dispatch) => {
 class BoardFetcher extends Component {
   render() {
     return(
-      <div>
-        <BoardComponent {...this.props} />
-      </div>
+      <BoardComponent {...this.props} />
     )
   }
 }

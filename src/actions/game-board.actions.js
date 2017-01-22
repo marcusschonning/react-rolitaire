@@ -1,4 +1,5 @@
 export const startGame = (cards) => {
+  // eslint-disable-next-line
   let cardsIds = Object.keys(cards).map(card => parseInt(card));
   let b, c, d;
 
@@ -76,3 +77,12 @@ export const turnCard = (id) => {
   }
 }
 
+export const addToSuits = (suitsId, cardId) => {
+  return {
+    type: 'ADD_TO_SUITS',
+    payload: {
+      suitsId: suitsId,
+      cardId: cardId,
+    }
+  }
+}

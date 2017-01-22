@@ -43,6 +43,16 @@ const deck = (state = initialState, action) => {
           ...state,
           drawn: state.drawn.slice(0, state.drawn.indexOf(action.payload.cardId))
         });
+
+      case 'ADD_TO_SUITS':
+        if(state.drawn.indexOf(action.payload.cardId) !== -1) {
+          return Object.assign({}, state, {
+            ...state,
+            drawn: state.drawn.slice(0, state.drawn.indexOf(action.payload.cardId))
+          });
+        } else {
+          return state;
+        }
     default:
       return state;
   }

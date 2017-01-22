@@ -1,5 +1,6 @@
 .deck {
   display: flex;
+  float: left;
 }
 .deck .card {
   position: absolute;

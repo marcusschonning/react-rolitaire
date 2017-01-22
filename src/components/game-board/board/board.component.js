@@ -7,8 +7,7 @@ import './board.component.css';
 class BoardComponent extends Component {
   render() {
     return (
-      <div>
-        <h1>Board!</h1>
+      <div className="board">
         <div className="board-rows">
           {Object.keys(this.props.board).map((row, i) => {
             return (

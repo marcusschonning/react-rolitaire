@@ -7,6 +7,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import GameBoardComponent from './../../components/game-board/game-board.component';
 import DeckContainer from './deck/deck.container';
 import BoardContainer from './board/board.container';
+import SuitsContainer from './suits/suits.container';
 
 import { startGame } from './../../actions/game-board.actions';
 
@@ -34,6 +35,7 @@ class GameBoardFetcher extends Component {
     return(
       <GameBoardComponent {...this.props}>
         <DeckContainer />
+        <SuitsContainer />
         <BoardContainer />
       </GameBoardComponent>
     )

@@ -1,11 +1,15 @@
+.board {
+  clear: both;
+}
 .board-rows {
   display: flex;
+  justify-content: space-between;
 }
 
 .board-row {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 120px;
+  height: 180px;
 }
 
 .board-row .card {
