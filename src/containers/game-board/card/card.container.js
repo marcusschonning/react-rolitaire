@@ -47,7 +47,6 @@ class CardFetcher extends Component {
         {
           'left': this.props.orderFromLast ? this.props.orderFromLast/2 : null,
           'opacity': this.props.isDragging ? 0 : 1,
-          'cursor': 'grab',
           height: 180,
           width: 120,
           position: 'absolute',
@@ -70,19 +69,10 @@ const cardSource = {
 
 const cardTarget = {
   hover(targetProps, monitor) {
-    const targetId = targetProps.id;
-    const sourceProps = monitor.getItem();
-    const sourceId = sourceProps.id;
-    // console.log(targetProps)
-    if(sourceId !== targetId) {
-      //targetProps.onMove({sourceId, targetId});
-    }
+    //Dispatch action to show which cards which targets are avialable
   },
 
   drop(targetProps, monitor, component) {
-    // console.log('drop! targetProps:', targetProps)
-    // console.log('monitor', monitor.getItem());
-    // console.log(component)
     const { cardsById, cardId, moveCard, board } = component.props;
     const dropId = monitor.getItem().id;
 

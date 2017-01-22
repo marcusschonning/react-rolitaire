@@ -33,33 +33,19 @@ class SuitFetcher extends Component {
 
 const cardTarget = {
   hover(targetProps, monitor) {
-    const targetId = targetProps.id;
-    const sourceProps = monitor.getItem();
-    const sourceId = sourceProps.id;
-    // console.log(targetProps)
-    if(sourceId !== targetId) {
-      //targetProps.onMove({sourceId, targetId});
-    }
+    return
   },
 
   drop(targetProps, monitor, component) {
-    // let droppedCard = targetProps.cardsById[monitor.getItem().id];
-    // if(targetProps.board.length === 0 && droppedCard.value === 13) {
-    //   let currentPlacement = targetProps.deck.drawn.indexOf(droppedCard.id) !== -1 ? 'DECK' : 'BOARD';
-    //   targetProps.moveKing(targetProps.id, currentPlacement, droppedCard.id)
-    // }
     const { id, suits, cards, addToSuits } = targetProps;
     const suitArray = suits[id];
     const cardId = monitor.getItem().id;
     const card = cards[cardId];
     const lastCardInAray = cards[suitArray[suitArray.length-1]];
-    console.log('targetProps', targetProps);
     if(suitArray.length === 0 && card.value === 1) {
-      console.log('add ace');
       addToSuits(id, cardId);
     } else if(suitArray.length > 0) {
       if(lastCardInAray.value === card.value-1 && lastCardInAray.suit === card.suit) {
-        console.log('add card suitArray');
         addToSuits(id, cardId);
       }
     }

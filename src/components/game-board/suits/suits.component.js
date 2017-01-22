@@ -5,7 +5,6 @@ import './suits.component.css';
 
 class SuitsComponent extends Component {
   render() {
-    console.log(this.props)
     const { suits } = this.props;
     return(
       <div className="suits">

@@ -4,7 +4,7 @@ class GameBoardComponent extends Component {
   render() {
     return(
       <div className={'game-board'}>
-        <h4>Speeeeeeelet :)</h4>
+        <button onClick={() => this.props.startGame(this.props.game.cardsById)}>Starta om</button>
         {this.props.children}
       </div>
     )

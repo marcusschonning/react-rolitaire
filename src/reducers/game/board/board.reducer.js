@@ -11,7 +11,7 @@ const initialState = {
 const board = (state = initialState, action) => {
   switch(action.type) {
     case 'START_GAME':
-      let newBoardState = Object.assign({}, state)
+      let newBoardState = Object.assign({}, initialState);
       let count = 0;
       for(let i = 0; i < 7; i++) {
         for(let j = 0; j <= i; j++) {

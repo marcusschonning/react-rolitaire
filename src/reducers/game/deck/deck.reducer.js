@@ -6,8 +6,7 @@ const initialState = {
 const deck = (state = initialState, action) => {
   switch(action.type) {
     case 'START_GAME':
-      return Object.assign({}, state, {
-        drawn: [],
+      return Object.assign({}, initialState, {
         notDrawn: action.payload.cardsInDeck
       })
 

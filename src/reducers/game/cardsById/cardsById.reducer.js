@@ -48,7 +48,7 @@ const initialState = temp;
 const cardsById = (state = initialState, action) => {
   switch(action.type) {
     case 'START_GAME':
-      let cardsToTurn = {}
+      let cardsToTurn = Object.assign({}, initialState);
       for(let i = 0; i < action.payload.cardsToTurn.length; i++) {
         let cardToTurn = action.payload.cardsToTurn[i];
         cardsToTurn[cardToTurn] = Object.assign({}, state[cardToTurn], {
