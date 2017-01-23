@@ -6,7 +6,7 @@ import {  } from './../../../actions/game-board.actions';
 
 const mapStateToProps = (state) => {
   return {
-    suits: state.game.suits,
+    suits: state.undoableGame.present.suits,
   }
 }
 

@@ -1,3 +1,4 @@
+import undoable, { distinctState } from 'redux-undo';
 import { combineReducers } from 'redux';
 
 import deck from './deck/deck.reducer';
@@ -12,4 +13,8 @@ const game = combineReducers({
   cardsById
 })
 
-export default game;
+const undoableGame = undoable(game, {
+  filter: distinctState()
+});
+
+export default undoableGame;

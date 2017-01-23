@@ -9,9 +9,9 @@ import Card from './../../../components/game-board/card/card.component';
 
 const mapStateToProps = (state) => {
   return {
-    cardsById: state.game.cardsById,
-    deck: state.game.deck,
-    board: state.game.board,
+    cardsById: state.undoableGame.present.cardsById,
+    deck: state.undoableGame.present.deck,
+    board: state.undoableGame.present.board,
   }
 }
 
@@ -76,6 +76,11 @@ const cardTarget = {
   },
 
   drop(targetProps, monitor, component) {
+    /*
+
+      MOVE TARGET LOGIC TO BOARD-ROW.CONTAINER
+
+    */
     const { cardsById, cardId, moveCard, board } = component.props;
     const dropId = monitor.getItem().id;
 

@@ -5,10 +5,10 @@ import BoardComponent from '../../../components/game-board/board/board.component
 
 const mapStateToProps = (state) => {
   let cardsShowing = {};
-  Object.keys(state.game.board).map(row => {
+  Object.keys(state.undoableGame.present.board).map(row => {
     cardsShowing[row] = []
-    state.game.board[row].map(card => {
-      if(state.game.cardsById[card].show) {
+    state.undoableGame.present.board[row].map(card => {
+      if(state.undoableGame.present.cardsById[card].show) {
         cardsShowing[row].push(card);
       }
       return card;
@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
     return row;
   })
   return {
-    board: state.game.board,
+    board: state.undoableGame.present.board,
     cardsShowing: cardsShowing,
   }
 }

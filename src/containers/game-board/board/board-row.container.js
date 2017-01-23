@@ -10,9 +10,9 @@ import BoardRowComponent from '../../../components/game-board/board/board-row.co
 
 const mapStateToProps = (state) => {
   return {
-    boards: state.game.board,
-    deck: state.game.deck,
-    cardsById: state.game.cardsById,
+    boards: state.undoableGame.present.board,
+    deck: state.undoableGame.present.deck,
+    cardsById: state.undoableGame.present.cardsById,
   }
 }
 
@@ -37,13 +37,7 @@ class BoardFetcher extends Component {
 
 const cardTarget = {
   hover(targetProps, monitor) {
-    const targetId = targetProps.id;
-    const sourceProps = monitor.getItem();
-    const sourceId = sourceProps.id;
-    // console.log(targetProps)
-    if(sourceId !== targetId) {
-      //targetProps.onMove({sourceId, targetId});
-    }
+    //show avialable target rows for dragged
   },
 
   drop(targetProps, monitor, component) {

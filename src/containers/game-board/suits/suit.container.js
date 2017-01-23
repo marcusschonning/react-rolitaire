@@ -8,8 +8,8 @@ import { addToSuits } from './../../../actions/game-board.actions';
 
 const mapStateToProps = (state) => {
   return {
-    suits: state.game.suits,
-    cards: state.game.cardsById,
+    suits: state.undoableGame.present.suits,
+    cards: state.undoableGame.present.cardsById,
   }
 }
 

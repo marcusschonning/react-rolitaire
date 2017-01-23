@@ -6,7 +6,7 @@ import { resetDeck } from './../../../actions/game-board.actions';
 
 const mapStateToProps = (state) => {
   return {
-    deck: state.game.deck,
+    deck: state.undoableGame.present.deck,
   }
 }
 
