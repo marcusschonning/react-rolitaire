@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { DropTarget } from 'react-dnd';
 
-import { moveKing } from './../../../actions/game-board.actions';
+import { moveCard } from './../../../actions/game-board.actions';
 
 import BoardRowComponent from '../../../components/game-board/board/board-row.component';
 
@@ -13,14 +13,15 @@ const mapStateToProps = (state) => {
     boards: state.undoableGame.present.board,
     deck: state.undoableGame.present.deck,
     cardsById: state.undoableGame.present.cardsById,
+    suits: state.undoableGame.present.suits,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    moveKing: (targetRow, currentPlacement, cardId) => {
-      dispatch(moveKing(targetRow, currentPlacement, cardId));
-    },
+    moveCard: (targetRow, currentPlace, cardId) => {
+      dispatch(moveCard(targetRow, currentPlace, cardId));
+    }
   }
 }
 
@@ -41,10 +42,33 @@ const cardTarget = {
   },
 
   drop(targetProps, monitor, component) {
-    let droppedCard = targetProps.cardsById[monitor.getItem().id];
-    if(targetProps.board.length === 0 && droppedCard.value === 13) {
-      let currentPlacement = targetProps.deck.drawn.indexOf(droppedCard.id) !== -1 ? 'DECK' : 'BOARD';
-      targetProps.moveKing(targetProps.id, currentPlacement, droppedCard.id)
+    const { cardsById, moveCard, board, boards, suits, deck, id } = targetProps;
+    const droppedCard = cardsById[monitor.getItem().id];
+    let currentPlacement = deck.drawn.indexOf(droppedCard.id) !== -1 ? 'DECK' : '';
+    if(currentPlacement === '') {
+      for(let key in boards) {
+        if(boards[key].indexOf(droppedCard.id) !== -1) {
+          currentPlacement = 'BOARD';
+          break;
+        }
+      }
+    }
+    if(currentPlacement === '') {
+      for(let key in suits) {
+        if(suits[key].indexOf(droppedCard.id) !== -1) {
+          currentPlacement = 'SUITS';
+          break;
+        }
+      }
+    }
+
+    if(board.length === 0 && droppedCard.value === 13) {
+      moveCard(id, currentPlacement, droppedCard.id);
+      return;
+    }
+    let targetCard = cardsById[board[board.length - 1]]
+    if(droppedCard.show && targetCard.show &&  droppedCard.value === targetCard.value - 1 && targetCard.suitColor !== droppedCard.suitColor) {
+      moveCard(id, currentPlacement, droppedCard.id);
     }
   }
 };

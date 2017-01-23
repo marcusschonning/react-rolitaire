@@ -22,57 +22,30 @@ const board = (state = initialState, action) => {
       return newBoardState;
 
     case 'MOVE_CARD':
-      const { dropId, targetId } = action.payload;
-      let addKey;
-      let removeKey;
-      for(let key in state) {
-        if(state[key].indexOf(dropId) !== -1) {
-          removeKey = key;
+      const { cardId, targetRow, currentPlace } = action.payload;
 
+      if(currentPlace === 'BOARD') {
+        let removeKey;
+        for(let key in state) {
+          if(state[key].indexOf(cardId) !== -1) {
+            removeKey = key;
+            break;
+          }
         }
-        if(state[key].indexOf(targetId) !== -1) {
-          addKey = key;
-        }
-      }
-      let removeFromArray = removeKey ? state[removeKey].slice(0, state[removeKey].indexOf(dropId)) : null;
-      let addToArray = state[addKey].concat(removeKey ?
-        state[removeKey].slice(state[removeKey].indexOf(dropId)) :
-        dropId
-      );
-      let newMovedState = removeFromArray ?
-        {
-          ...state,
-          [removeKey]: removeFromArray,
-          [addKey]: addToArray
-        } :
-        {
-          ...state,
-          [addKey]: addToArray
-        };
-      return Object.assign({}, state, newMovedState);
-
-    case 'MOVE_KING':
-      let { targetRow, currentPlace, cardId } = action.payload;
-      if(currentPlace === 'DECK') {
         return Object.assign({}, state, {
           ...state,
-          [targetRow]: state[targetRow].concat(cardId)
+          [removeKey]: state[removeKey].slice(0, state[removeKey].indexOf(cardId)),
+          [targetRow]: state[targetRow].concat(
+            state[removeKey].slice(state[removeKey].indexOf(cardId))
+          )
+
         })
       }
-      let removeKingKey;
-      for(let key in state) {
-        if(state[key].indexOf(cardId) !== -1) {
-          removeKingKey = key;
-        }
-      }
-      let movedCards = state[removeKingKey].slice(state[removeKingKey].indexOf(cardId));
-
       return Object.assign({}, state, {
         ...state,
-        [removeKingKey]: state[removeKingKey].slice(0, state[removeKingKey].indexOf(cardId)),
-        [targetRow]: state[targetRow].concat(movedCards),
+        [targetRow]: state[targetRow].concat(cardId)
+      })
 
-      });
     case 'ADD_TO_SUITS':
       const removeCardId = action.payload.cardId;
       let removeFromStateKey,

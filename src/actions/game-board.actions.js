@@ -46,24 +46,13 @@ export const drawFromDeck = (card) => {
   }
 }
 
-export const moveCard = (targetId, dropId, board) => {
+export const moveCard = (targetRow, currentPlace, cardId) => {
   return {
     type: 'MOVE_CARD',
     payload: {
-      targetId: targetId,
-      dropId: dropId,
-      board: board,
-    }
-  }
-}
-
-export const moveKing = (targetRow, currentPlace, cardId) => {
-  return {
-    type: 'MOVE_KING',
-    payload: {
       targetRow: targetRow,
       currentPlace: currentPlace,
-      cardId: cardId
+      cardId: cardId,
     }
   }
 }

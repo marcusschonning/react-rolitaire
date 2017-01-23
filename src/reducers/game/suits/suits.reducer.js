@@ -30,14 +30,14 @@ const suits = (state = initialState, action) => {
     case 'MOVE_CARD':
       let keyInArrayToFilter;
       for(let key in state) {
-        if(state[key].indexOf(action.payload.dropId) !== -1) {
+        if(state[key].indexOf(action.payload.cardId) !== -1) {
           keyInArrayToFilter = key;
           break;
         }
       }
       return !keyInArrayToFilter ? state : Object.assign({}, state, {
         ...state,
-        [keyInArrayToFilter]: state[keyInArrayToFilter].filter(card => card !== action.payload.dropId)
+        [keyInArrayToFilter]: state[keyInArrayToFilter].filter(card => card !== action.payload.cardId)
       });
 
     default:

@@ -27,21 +27,14 @@ const deck = (state = initialState, action) => {
       });
 
     case 'MOVE_CARD':
-      let { dropId } = action.payload;
-      let newDrawn = state.drawn.indexOf(dropId) !== -1 ? state.drawn.slice(0, state.drawn.indexOf(action.payload.dropId)) : state.drawn;
-      return Object.assign({}, state, {
-        ...state,
-        drawn: newDrawn
-      });
-
-      case 'MOVE_KING':
-        if(action.payload.currentPlace !== 'DECK') {
-          return state
-        }
+      let { currentPlace, cardId } = action.payload;
+      if(currentPlace === 'DECK') {
         return Object.assign({}, state, {
           ...state,
-          drawn: state.drawn.slice(0, state.drawn.indexOf(action.payload.cardId))
-        });
+          drawn: state.drawn.filter(card => card !== cardId)
+        })
+      }
+      return state;
 
       case 'ADD_TO_SUITS':
         if(state.drawn.indexOf(action.payload.cardId) !== -1) {

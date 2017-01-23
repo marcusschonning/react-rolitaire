@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch) => {
 class CardFetcher extends Component {
   render() {
 
-    const { connectDragSource, connectDropTarget, cardsShowing, cardId } = this.props;
+    const { connectDragSource, cardsShowing, cardId } = this.props;
 
     let topValue = 0;
     let negativeTop = 0;
@@ -42,7 +42,7 @@ class CardFetcher extends Component {
       negativeTop = cardsShowing.length < 5 ? cardsShowing.length : 5;
       topValue = cardsShowing.indexOf(cardId) > 0 ? ((cardsShowing.indexOf(cardId) * 35) - negativeTop) : 0;
     }
-    return compose(connectDragSource, connectDropTarget)(
+    return connectDragSource(
       <div style={
         {
           'left': this.props.orderFromLast ? this.props.orderFromLast/2 : null,
@@ -70,28 +70,6 @@ const cardSource = {
   },
 };
 
-const cardTarget = {
-  hover(targetProps, monitor) {
-    //Dispatch action to show which cards which targets are avialable
-  },
-
-  drop(targetProps, monitor, component) {
-    /*
-
-      MOVE TARGET LOGIC TO BOARD-ROW.CONTAINER
-
-    */
-    const { cardsById, cardId, moveCard, board } = component.props;
-    const dropId = monitor.getItem().id;
-
-    const dropCard = cardsById[dropId];
-    const targetCard = cardsById[cardId];
-    if( dropCard.show && targetCard.show && dropCard.value === targetCard.value-1 && dropCard.suitColor !== targetCard.suitColor ) {
-      moveCard(cardId, dropId, board);
-    }
-  }
-};
-
 function collect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
@@ -105,9 +83,6 @@ const CardContainer = compose(
     mapDispatchToProps
   ),
   DragSource('card', cardSource, collect),
-  DropTarget('card', cardTarget, connect => ({
-    connectDropTarget: connect.dropTarget()
-  })),
 )(CardFetcher);
 
 export default CardContainer;
