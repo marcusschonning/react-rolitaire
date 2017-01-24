@@ -10,12 +10,10 @@ import GameBoardComponent from './../../components/game-board/game-board.compone
 import { startGame } from './../../actions/game-board.actions';
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     game: state.undoableGame.present,
     canUndo: state.undoableGame.past.length > 1,
     canRedo: state.undoableGame.future.length > 0,
-    actions: state.undoableGame.past.length-1,
   }
 }
 

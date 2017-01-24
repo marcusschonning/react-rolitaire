@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
   return {
     suits: state.undoableGame.present.suits,
     cards: state.undoableGame.present.cardsById,
+    board: state.undoableGame.present.board,
   }
 }
 
@@ -42,6 +43,7 @@ const cardTarget = {
     const cardId = monitor.getItem().id;
     const card = cards[cardId];
     const lastCardInAray = cards[suitArray[suitArray.length-1]];
+
     if(suitArray.length === 0 && card.value === 1) {
       addToSuits(id, cardId);
     } else if(suitArray.length > 0) {
