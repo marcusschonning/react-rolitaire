@@ -9,9 +9,9 @@ class BoardComponent extends Component {
     return (
       <div className="board">
         <div className="board-rows">
-          {Object.keys(this.props.board).map((row, i) => {
+          {Object.keys(this.props.board).map(row => {
             return (
-              <BoardRowContainer key={i} id={row} board={this.props.board[row]} cardsShowing={this.props.cardsShowing[row]} />
+              <BoardRowContainer key={row} id={row} boardRow={this.props.board[row]} cardsShowing={this.props.cardsShowing[row]} />
             )
           })}
         </div>

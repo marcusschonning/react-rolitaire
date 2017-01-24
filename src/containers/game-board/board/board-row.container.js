@@ -42,7 +42,7 @@ const cardTarget = {
   },
 
   drop(targetProps, monitor, component) {
-    const { cardsById, moveCard, board, boards, suits, deck, id } = targetProps;
+    const { cardsById, moveCard, boardRow, boards, suits, deck, id } = targetProps;
     const droppedCard = cardsById[monitor.getItem().id];
     let currentPlacement = deck.drawn.indexOf(droppedCard.id) !== -1 ? 'DECK' : '';
     if(currentPlacement === '') {
@@ -62,11 +62,11 @@ const cardTarget = {
       }
     }
 
-    if(board.length === 0 && droppedCard.value === 13) {
+    if(boardRow.length === 0 && droppedCard.value === 13) {
       moveCard(id, currentPlacement, droppedCard.id);
       return;
     }
-    let targetCard = cardsById[board[board.length - 1]]
+    let targetCard = cardsById[boardRow[boardRow.length - 1]]
     if(droppedCard.show && targetCard.show &&  droppedCard.value === targetCard.value - 1 && targetCard.suitColor !== droppedCard.suitColor) {
       moveCard(id, currentPlacement, droppedCard.id);
     }

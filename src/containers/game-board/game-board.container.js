@@ -6,17 +6,16 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import GameBoardComponent from './../../components/game-board/game-board.component';
-import DeckContainer from './deck/deck.container';
-import BoardContainer from './board/board.container';
-import SuitsContainer from './suits/suits.container';
 
 import { startGame } from './../../actions/game-board.actions';
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     game: state.undoableGame.present,
     canUndo: state.undoableGame.past.length > 1,
     canRedo: state.undoableGame.future.length > 0,
+    actions: state.undoableGame.past.length-1,
   }
 }
 
@@ -42,22 +41,17 @@ class GameBoardFetcher extends Component {
 
   render() {
     return(
-      <GameBoardComponent {...this.props}>
-        <DeckContainer />
-        <SuitsContainer />
-        <BoardContainer />
-      </GameBoardComponent>
+      <GameBoardComponent {...this.props} />
     )
   }
 }
-GameBoardFetcher = DragDropContext(HTML5Backend)(GameBoardFetcher);
 
 const GameBoardContainer = compose(
-  DragDropContext(HTML5Backend),
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )
+  ),
+  DragDropContext(HTML5Backend),
 )(GameBoardFetcher)
 
 export default GameBoardContainer;

@@ -5,7 +5,7 @@ import { DragSource } from 'react-dnd';
 
 import { drawFromDeck, moveCard, turnCard } from './../../../actions/game-board.actions';
 
-import Card from './../../../components/game-board/card/card.component';
+import CardComponent from './../../../components/game-board/card/card.component';
 
 const mapStateToProps = (state) => {
   return {
@@ -53,7 +53,7 @@ class CardFetcher extends Component {
           top: cardsShowing ? topValue : 0
         }
       }>
-        <Card {...this.props} />
+        <CardComponent {...this.props} />
       </div>
     )
   }
