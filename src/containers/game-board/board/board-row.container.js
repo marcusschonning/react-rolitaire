@@ -68,6 +68,7 @@ const cardTarget = {
     }
 
     let targetCard = cardsById[boardRow[boardRow.length - 1]]
+
     if( targetCard ) {
       if(droppedCard.show && targetCard.show &&  droppedCard.value === targetCard.value - 1 && targetCard.suitColor !== droppedCard.suitColor) {
         moveCard(id, currentPlacement, droppedCard.id);
