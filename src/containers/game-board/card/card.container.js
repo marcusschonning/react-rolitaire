@@ -45,8 +45,8 @@ class CardFetcher extends Component {
     return connectDragSource(
       <div style={
         {
-          'left': this.props.orderFromLast ? this.props.orderFromLast/2 : null,
-          'opacity': this.props.isDragging ? 0 : 1,
+          left: this.props.orderFromLast ? this.props.orderFromLast/2 : null,
+          opacity: this.props.isDragging ? 0 : 1,
           height: 180,
           width: 120,
           position: 'absolute',

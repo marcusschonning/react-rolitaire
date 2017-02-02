@@ -38,19 +38,40 @@ const cardTarget = {
   },
 
   drop(targetProps, monitor, component) {
-    const { id, suits, cards, addToSuits } = targetProps;
+    const { id, suits, cards, addToSuits, board } = targetProps;
     const suitArray = suits[id];
     const cardId = monitor.getItem().id;
     const card = cards[cardId];
     const lastCardInAray = cards[suitArray[suitArray.length-1]];
 
+    let cardOnBoard = false;
+    let cardPlacementOnBoard;
+    for(let key in board) {
+      if(board[key].indexOf(cardId) !== -1) {
+        cardOnBoard = true;
+        if(board[key][board[key].length-1] === cardId) {
+          cardPlacementOnBoard = key;
+        }
+      }
+    }
+
     if(suitArray.length === 0 && card.value === 1) {
       addToSuits(id, cardId);
     } else if(suitArray.length > 0) {
       if(lastCardInAray.value === card.value-1 && lastCardInAray.suit === card.suit) {
-        addToSuits(id, cardId);
+        if(cardOnBoard) {
+          if(cardPlacementOnBoard) {
+            addToSuits(id, cardId);
+          }
+        } else {
+          addToSuits(id, cardId);
+        }
       }
     }
+
+
+
+
   }
 };
 
