@@ -20,9 +20,9 @@ class GameBoardComponent extends Component {
           //
           <div>
             <h1>Grattis!</h1>
-            <p>Du klarade speled på
-              <strong>{this.props.timer.hrs ? this.props.timer.hrs + ' hrs' : null}</strong>
-              <strong>{this.props.timer.min ? this.props.timer.min + ' min' : null}</strong>
+            <p>Du klarade speled på&nbsp;
+              <strong>{this.props.timer.hrs ? this.props.timer.hrs + ' hrs ' : null}</strong>
+              <strong>{this.props.timer.min ? this.props.timer.min + ' min ' : null}</strong>
               <strong>{this.props.timer.sec ? this.props.timer.sec + ' sec' : null}</strong>
             </p>
           </div> :

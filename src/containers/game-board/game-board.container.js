@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
   }).reduce((total, len) => {
     return total + len;
   }, 0);
-  let finnished = cardsDone + 51 === 52;
+  let finnished = cardsDone === 52;
   return {
     game: state.undoableGame.present,
     canUndo: state.undoableGame.past.length > 1,
