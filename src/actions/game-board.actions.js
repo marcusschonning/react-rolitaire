@@ -8,11 +8,10 @@ const timerTick = () => {
 export const startGame = (cards, dispatch) => {
   return (dispatch) => {
     //Get all cardIds in an array
-    // eslint-disable-next-line
-    let cardsIds = Object.keys(cards).map(card => parseInt(card));
-    let b, c, d;
+    const cardsIds = Object.keys(cards).map(card => parseInt(card, 10));
 
     //Scramble that array
+    let b, c, d;
     c = cardsIds.length;
     while(c) {
       b = Math.random() * (--c + 1) | 0;

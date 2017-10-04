@@ -34,7 +34,7 @@ class SuitFetcher extends Component {
 
 const cardTarget = {
   hover(targetProps, monitor) {
-    return
+    return;
   },
 
   drop(targetProps, monitor, component) {

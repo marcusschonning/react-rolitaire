@@ -10,12 +10,12 @@ import GameBoardComponent from './../../components/game-board/game-board.compone
 import { startGame, stopTimer } from './../../actions/game-board.actions';
 
 const mapStateToProps = (state) => {
-  let cardsDone = Object.keys(state.undoableGame.present.suits).map((arr) => {
+  const cardsDone = Object.keys(state.undoableGame.present.suits).map((arr) => {
     return state.undoableGame.present.suits[arr].length;
   }).reduce((total, len) => {
     return total + len;
   }, 0);
-  let finnished = cardsDone === 52;
+  const finnished = cardsDone === 52;
   return {
     game: state.undoableGame.present,
     canUndo: state.undoableGame.past.length > 1,

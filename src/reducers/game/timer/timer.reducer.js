@@ -48,6 +48,4 @@ const timer = (state = initialState, action) => {
 
 }
 
-
-
 export default timer;

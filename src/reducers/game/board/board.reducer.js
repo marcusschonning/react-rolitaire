@@ -6,20 +6,19 @@ const initialState = {
   5: [],
   6: [],
   7: [],
-}
+};
 
 const board = (state = initialState, action) => {
   switch(action.type) {
     case 'START_GAME':
-      let newBoardState = Object.assign({}, initialState);
-      let count = 0;
-      for(let i = 0; i < 7; i++) {
-        for(let j = 0; j <= i; j++) {
-          newBoardState[i+1] = newBoardState[i+1].concat(action.payload.cardsOnBoard[count]);
-          count++;
-        }
-      }
-      return newBoardState;
+      // add each card on board to the state with a "triangular sequence",
+      // length of cardsOnBoard should be equal to 27
+      return Object.keys(initialState)
+        .map(key => parseInt(key, 10))
+        .reduce((state, key, index,) => {
+          state[key] = action.payload.cardsOnBoard.slice(index*(index+1)/2, (index*(index+1)/2) + key);
+          return state;
+        }, {});
 
     case 'MOVE_CARD':
       const { cardId, targetRow, currentPlace } = action.payload;
