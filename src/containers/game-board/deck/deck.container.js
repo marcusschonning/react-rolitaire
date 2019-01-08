@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import DeckComponent from '../../../components/game-board/deck/deck.component';
+import { DeckComponent } from '../../../components';
 import { resetDeck } from './../../../actions/game-board.actions';
 
 const mapStateToProps = (state) => {

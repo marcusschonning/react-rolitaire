@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import CardContainer from './../../../containers/game-board/card/card.container';
+import { CardContainer } from './../../../containers';
 import './deck.component.css';
 
 class DeckComponent extends Component {

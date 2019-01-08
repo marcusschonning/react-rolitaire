@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { DropTarget } from 'react-dnd';
 
-import SuitComponent from '../../../components/game-board/suits/suit.component';
+import { SuitComponent } from '../../../components';
 import { addToSuits } from './../../../actions/game-board.actions';
 
 const mapStateToProps = (state) => {

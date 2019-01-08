@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import BoardComponent from '../../../components/game-board/board/board.component';
+import { BoardComponent } from '../../../components';
 
 const mapStateToProps = (state) => {
   let cardsShowing = {};

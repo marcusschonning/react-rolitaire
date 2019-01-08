@@ -5,7 +5,7 @@ import { ActionCreators as UndoActionCreators } from 'redux-undo'
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import GameBoardComponent from './../../components/game-board/game-board.component';
+import { GameBoardComponent } from './../../components';
 
 import { startGame, stopTimer } from './../../actions/game-board.actions';
 

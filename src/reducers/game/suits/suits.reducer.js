@@ -18,14 +18,14 @@ const suits = (state = initialState, action) => {
           break;
         }
       }
-      return keyInArrayWithAce ? Object.assign({}, state, {
+      return keyInArrayWithAce ? {
         ...state,
         [suitsId]: state[suitsId].concat(cardId),
         [keyInArrayWithAce]: state[keyInArrayWithAce].filter(ace => ace !== cardId)
-      }) : Object.assign({}, state, {
+      } : {
         ...state,
         [suitsId]: state[suitsId].concat(cardId)
-      });
+      };
 
     case 'MOVE_CARD':
       let keyInArrayToFilter;
@@ -35,10 +35,10 @@ const suits = (state = initialState, action) => {
           break;
         }
       }
-      return !keyInArrayToFilter ? state : Object.assign({}, state, {
+      return !keyInArrayToFilter ? state : {
         ...state,
         [keyInArrayToFilter]: state[keyInArrayToFilter].filter(card => card !== action.payload.cardId)
-      });
+      };
 
     default:
       return state;

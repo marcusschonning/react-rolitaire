@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import BoardRowContainer from './../../../containers/game-board/board/board-row.container';
+import { BoardRowContainer } from './../../../containers';
 import './board.component.css';
 
 

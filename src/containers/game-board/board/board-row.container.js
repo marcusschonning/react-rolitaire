@@ -5,7 +5,7 @@ import { DropTarget } from 'react-dnd';
 
 import { moveCard } from './../../../actions/game-board.actions';
 
-import BoardRowComponent from '../../../components/game-board/board/board-row.component';
+import { BoardRowComponent } from '../../../components';
 
 
 const mapStateToProps = (state) => {

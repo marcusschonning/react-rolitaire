@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-import DeckContainer from './../../containers/game-board/deck/deck.container';
-import BoardContainer from './../../containers/game-board/board/board.container';
-import SuitsContainer from './../../containers/game-board/suits/suits.container';
+import { DeckContainer, BoardContainer, SuitsContainer } from './../../containers';
 
 import './game-board.component.css';
 

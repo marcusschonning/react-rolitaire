@@ -31,19 +31,19 @@ const board = (state = initialState, action) => {
             break;
           }
         }
-        return Object.assign({}, state, {
+        return {
           ...state,
           [removeKey]: state[removeKey].slice(0, state[removeKey].indexOf(cardId)),
           [targetRow]: state[targetRow].concat(
             state[removeKey].slice(state[removeKey].indexOf(cardId))
           )
 
-        })
+        }
       }
-      return Object.assign({}, state, {
+      return {
         ...state,
         [targetRow]: state[targetRow].concat(cardId)
-      })
+      }
 
     case 'ADD_TO_SUITS':
       const removeCardId = action.payload.cardId;
@@ -59,10 +59,10 @@ const board = (state = initialState, action) => {
         }
       }
       if(removeFromStateKey) {
-        return Object.assign({}, state, {
+        return {
           ...state,
           [removeFromStateKey]: movedToSuitsArr
-        })
+        }
       } else {
         return state;
       }

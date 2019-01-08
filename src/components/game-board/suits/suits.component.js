@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import SuitContainer from './../../../containers/game-board/suits/suit.container';
+import { SuitContainer } from './../../../containers';
 import './suits.component.css';
 
 class SuitsComponent extends Component {

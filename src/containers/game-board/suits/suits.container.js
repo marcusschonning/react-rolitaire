@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import SuitsComponent from '../../../components/game-board/suits/suits.component';
+import { SuitsComponent } from '../../../components';
 import {  } from './../../../actions/game-board.actions';
 
 const mapStateToProps = (state) => {

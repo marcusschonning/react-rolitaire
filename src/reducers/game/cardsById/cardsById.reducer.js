@@ -1,91 +1,70 @@
-let cards = [];
 
-let value = 0;
-let suitValue = 0;
-let suit = '';
-
-let cardId = 0;
-for(let i = 0; i < 4; i++) {
-  suitValue++;
-  for(let j = 0; j < 13; j++) {
-    cardId++;
-    value++
-    switch(suitValue) {
-      case 1:
-        suit = 'hearts';
-        break;
-      case 2:
-        suit = 'diamonds';
-        break;
-      case 3:
-        suit = 'clubs';
-        break;
-      case 4:
-        suit = 'spades';
-        break;
-      default:
-        break;
-    }
-    let suitColor = suitValue > 2 ? 'black' : 'red';
-    cards = cards.concat({
-      id: cardId,
-      value: value,
-      suit: suit,
-      suitColor: suitColor,
-      suitValue: suitValue,
+let _suitVal = 0;
+const cards = [...Array(52)]
+  .map((_, i) => {
+    if(i % 13 === 0) _suitVal++
+    const _suit = _suitVal === 1 ? 'hearts' : _suitVal === 2 ? 'diamonds' : _suitVal === 3 ? 'clubs' : 'spades';
+    const _suitColor = _suitVal > 2 ? 'black' : 'red';
+    return {
+      id: i + 1,
+      value: (i % 13) + 1,
+      suit: _suit,
+      suitColor: _suitColor,
+      suitValue: _suitVal,
       show: false,
-    })
-  }
-  value = 0;
-}
+    };
+  })
+  .reduce((acc, card) => {
+    return {
+      ...acc,
+      [card.id]: card
+    }
+  }, {});
 
-let temp = {};
-for (var i = 0; i < cards.length; i++) {
-  temp[cards[i].id] = cards[i];
-}
-const initialState = temp;
+const initialState = cards;
 
 const cardsById = (state = initialState, action) => {
   switch(action.type) {
     case 'START_GAME':
-      let cardsToTurn = Object.assign({}, initialState);
+      const cardsToTurn = { ...initialState };
       for(let i = 0; i < action.payload.cardsToTurn.length; i++) {
-        let cardToTurn = action.payload.cardsToTurn[i];
-        cardsToTurn[cardToTurn] = Object.assign({}, state[cardToTurn], {
+        const cardToTurn = action.payload.cardsToTurn[i];
+        cardsToTurn[cardToTurn] = {
           ...state[cardToTurn],
           show: true
-        })
+        }
       }
-      return Object.assign({}, state, cardsToTurn);
+      return {...state, ...cardsToTurn};
     case 'DRAW_FROM_DECK':
-      let { card } = action.payload;
-
-      let { id } = card;
-      return Object.assign({}, state, {
+      const { card } = action.payload;
+      const { id } = card;
+      return {
+        ...state,
         [id]: {
           ...state[id],
           show: true,
         }
-      });
+      };
 
     case 'TURN_CARD':
-      return Object.assign({}, state, {
+      return {
+        ...state,
         [action.payload.id]: {
           ...state[action.payload.id],
           show: true
         }
-      })
+      }
 
     case 'RESET_DECK':
       let resetCardsInDeck = {};
       let keys = action.payload.deck.drawn;
       for(let i = 0; i < keys.length; i++) {
-        resetCardsInDeck[keys[i]] = Object.assign({}, state[keys[i]], {
+        resetCardsInDeck[keys[i]] = {
           ...state[keys[i]],
           show: false,
-        })
+        }
       }
-      return Object.assign({}, state, resetCardsInDeck);
+      return {...state, ...resetCardsInDeck};
 
     default:
       return state;

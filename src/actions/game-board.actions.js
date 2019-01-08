@@ -20,13 +20,13 @@ export const startGame = (cards, dispatch) => {
       cardsIds[b] = d;
     }
     //24 first cars to the deck
-    let cardsInDeck = cardsIds.slice(0, 24);
+    const cardsInDeck = cardsIds.slice(0, 24);
 
     //remaining cards on the board
-    let cardsOnBoard = cardsIds.slice(24);
+    const cardsOnBoard = cardsIds.slice(24);
 
     //first card in every pile on the board should be visible
-    let cardsToTurn = cardsOnBoard.filter((card, i) => {
+    const cardsToTurn = cardsOnBoard.filter((card, i) => {
       // console.log(i === 0 || i === 2 || i === 5 || i === 9 || i ===  14 ||i === 20 || i === 27);
       return i === 0 || i === 2 || i === 5 || i === 9 || i ===  14 ||i === 20 || i === 27;
     })

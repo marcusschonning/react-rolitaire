@@ -5,7 +5,7 @@ import { DragSource } from 'react-dnd';
 
 import { drawFromDeck, moveCard, turnCard } from './../../../actions/game-board.actions';
 
-import CardComponent from './../../../components/game-board/card/card.component';
+import { CardComponent } from './../../../components';
 
 const mapStateToProps = (state) => {
   return {
