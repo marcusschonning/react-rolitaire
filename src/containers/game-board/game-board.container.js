@@ -9,19 +9,19 @@ import { GameBoardComponent } from './../../components';
 
 import { startGame, stopTimer } from './../../actions/game-board.actions';
 
-const mapStateToProps = (state) => {
-  const cardsDone = Object.keys(state.undoableGame.present.suits).map((arr) => {
-    return state.undoableGame.present.suits[arr].length;
+const mapStateToProps = ({ undoableGame, timer }) => {
+  const cardsDone = Object.keys(undoableGame.present.suits).map((arr) => {
+    return undoableGame.present.suits[arr].length;
   }).reduce((total, len) => {
     return total + len;
   }, 0);
   const finnished = cardsDone === 52;
   return {
-    game: state.undoableGame.present,
-    canUndo: state.undoableGame.past.length > 1,
-    canRedo: state.undoableGame.future.length > 0,
-    finnished: finnished,
-    timer: state.timer,
+    game: undoableGame.present,
+    canUndo: undoableGame.past.length > 1,
+    canRedo: undoableGame.future.length > 0,
+    finnished,
+    timer,
   }
 }
 
@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-class GameBoardFetcher extends Component {
+class GameBoardContainer extends Component {
 
   componentDidMount() {
     this.props.startGame(this.props.game.cardsById);
@@ -61,12 +61,10 @@ class GameBoardFetcher extends Component {
   }
 }
 
-const GameBoardContainer = compose(
+export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   ),
   DragDropContext(HTML5Backend),
-)(GameBoardFetcher)
-
-export default GameBoardContainer;
+)(GameBoardContainer);

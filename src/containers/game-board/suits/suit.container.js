@@ -6,11 +6,11 @@ import { DropTarget } from 'react-dnd';
 import { SuitComponent } from '../../../components';
 import { addToSuits } from './../../../actions/game-board.actions';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ undoableGame }) => {
   return {
-    suits: state.undoableGame.present.suits,
-    cards: state.undoableGame.present.cardsById,
-    board: state.undoableGame.present.board,
+    suits: undoableGame.present.suits,
+    cards: undoableGame.present.cardsById,
+    board: undoableGame.present.board,
   }
 }
 

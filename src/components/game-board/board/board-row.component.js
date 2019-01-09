@@ -1,24 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import { CardContainer } from './../../../containers';
 import './board.component.css';
 
-
-class BoardRowComponent extends Component {
-  render() {
-    return (
-      <div className="board-row">
-        <div className="card"></div>
-        {this.props.boardRow.map((card, i) => {
+BoardRowComponent.propTypes = {
+  boardRow: PropTypes.array.isRequired,
+  cardsShowing: PropTypes.array.isRequired,
+}
+function BoardRowComponent({boardRow, cardsShowing}) {
+  return (
+    <div className="board-row">
+      <div className="card"></div>
+      {
+        boardRow.map((card, i) => {
           return(
             <div key={card}>
-              <CardContainer cardsShowing={this.props.cardsShowing} orderFromLast={i} cardId={card} />
+              <CardContainer cardsShowing={cardsShowing} orderFromLast={i} cardId={card} />
             </div>
           )
-        })}
-      </div>
-    );
-  }
+        })
+      }
+    </div>
+  );
 }
 
 export default BoardRowComponent;
